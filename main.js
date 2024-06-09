@@ -196,7 +196,7 @@ const moveBall = () => {
     velocityY = velocityY * 0.5;
     velocityX = velocityX * 0.5
     posX = newX;
-    newY = 0;
+    posY = 0;
     countJumps += 1;
     console.log(countJumps);
     validateJumps()
