@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movimiento Parabolico</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-cyan-400">
+    <div
+      class="containerInput flex flex-col bg-blue-700 justify-center items-center space-y-2"
+    >
+      <div class="flex flex-col">
+        <label for="inputx0">Posición inicial X0:</label>
+        <input
+          class="p-2 rounded-lg"
+          type="number"
+          placeholder="x0"
+          id="inputx0"
+          value="0"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="inputY0">Posición inicial Y0:</label>
+        <input
+          class="p-2 rounded-lg"
+          type="number"
+          placeholder="y0"
+          id="inputY0"
+          value="0"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="inputVelocity">Velocidad |V|:</label>
+        <input
+          class="p-2 rounded-lg"
+          type="number"
+          placeholder="|V|"
+          id="inputVelocity"
+          value="70"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="inputAngle">Angulo ∡V:</label>
+        <input
+          class="p-2 rounded-lg"
+          type="number"
+          placeholder="∡V"
+          id="inputAngle"
+          value="60"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="inputGravity">Gravedad g:</label>
+        <input
+          class="p-2 rounded-lg"
+          type="number"
+          placeholder="g"
+          id="inputGravity"
+          value="9.8"
+        />
+      </div>
+
+      <div class="pt-10 space-x-2  ">
+        <button
+          class="bg-green-600 w-20 xl:w-28 p-2 text-white rounded-xl"
+          id="btnLauch"
+        >
+          Iniciar
+        </button>
+        <button
+          class="bg-yellow-600 w-26 xl:w-32 p-2 text-white rounded-xl"
+          id="btnShowGraph"
+        >
+          Ver Gráficas
+        </button>
+      </div>
+
+      <div class="pt-10">
+        <h2>Autor: Yorman Alexander Carrillo Martinez</h2>
+        <h3>Codigo: 202010551</h3>
+      </div>
+    </div>
+    <div class="containerBall " id="contenedorBola">
+      <div class="pelota" id="ball"></div>
+    </div>
+    <div class="containerCharts hidden1 bg-white" id="containerGraphs">
+      <div class="row mt-12">
+        <div class="column flex justify-center">
+          <canvas id="velocityAngleChart"></canvas>
+        </div>
+
+        <div class="column flex justify-center">
+          <canvas id="velocityChart"></canvas>
+        </div>
+      </div>
+      <div class="row h-2/4">
+        <div class="column flex justify-center">
+          <canvas id="trajectoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

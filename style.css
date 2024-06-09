@@ -1,0 +1,75 @@
+.pelota {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  background-image: url('./imgs/BallTennis.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerBall {
+  margin-left: 7px;
+  margin-top: 7px;
+  margin-right: 7px;
+  height: 98vh;
+  width: 74vw;
+  position: absolute;
+  left: 25vw;
+  top: 0;
+  background-image: url('./imgs/tennis.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerInput {
+  height: 100vh;
+  width: 25vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerCharts {
+  height: 100vh;
+  width: 75vw;
+  position: absolute;
+  left: 25vw;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+}
+
+.hidden1 {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
