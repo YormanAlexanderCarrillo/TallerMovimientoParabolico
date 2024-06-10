@@ -47,23 +47,25 @@ inputV.addEventListener("change", handleInputChange);
 inputAngle.addEventListener("change", handleInputChange);
 inputGravity.addEventListener("change", handleInputChange);
 
-const trajectoryData = {
+const velocityAngleData = {
   labels: [],
   datasets: [
     {
-      label: "Posisición X vs Y",
+      label: "Angulo respecto la velocidad",
       data: [],
-      borderColor: "rgb(75, 192, 192)",
+      borderColor: "rgb(64, 211, 5)",
       tension: 0.1,
       fill: false,
     },
   ],
 };
 
-const ctx = document.getElementById("trajectoryChart").getContext("2d");
-const trajectoryChart = new Chart(ctx, {
+const ctxVelocityAngle = document
+  .getElementById("velocityAngleChart")
+  .getContext("2d");
+const velocityAngleChart = new Chart(ctxVelocityAngle, {
   type: "line",
-  data: trajectoryData,
+  data: velocityAngleData,
   options: {
     scales: {
       x: {
@@ -71,13 +73,13 @@ const trajectoryChart = new Chart(ctx, {
         position: "bottom",
         title: {
           display: true,
-          text: "Posición X",
+          text: "Velocidad ",
         },
       },
       y: {
         title: {
           display: true,
-          text: "Posición Y",
+          text: "Ángulo",
         },
       },
     },
@@ -121,25 +123,23 @@ const velocityChart = new Chart(ctxVelocity, {
   },
 });
 
-const velocityAngleData = {
+const trajectoryData = {
   labels: [],
   datasets: [
     {
-      label: "Angulo respecto la velocidad",
+      label: "Posisición X vs Y",
       data: [],
-      borderColor: "rgb(64, 211, 5)",
+      borderColor: "rgb(75, 192, 192)",
       tension: 0.1,
       fill: false,
     },
   ],
 };
 
-const ctxVelocityAngle = document
-  .getElementById("velocityAngleChart")
-  .getContext("2d");
-const velocityAngleChart = new Chart(ctxVelocityAngle, {
+const ctx = document.getElementById("trajectoryChart").getContext("2d");
+const trajectoryChart = new Chart(ctx, {
   type: "line",
-  data: velocityAngleData,
+  data: trajectoryData,
   options: {
     scales: {
       x: {
@@ -147,13 +147,13 @@ const velocityAngleChart = new Chart(ctxVelocityAngle, {
         position: "bottom",
         title: {
           display: true,
-          text: "Velocidad (m/s)",
+          text: "Posición X",
         },
       },
       y: {
         title: {
           display: true,
-          text: "Ángulo (grados)",
+          text: "Posición Y",
         },
       },
     },
@@ -165,7 +165,7 @@ const validateJumps = () => {
     clearInterval(interval);
     countJumps = 0;
     posX = Number(inputx0.value);
-    posY = Number(inputY0.value)
+    posY = Number(inputY0.value);
     newY = 0;
     return;
   }
@@ -194,12 +194,12 @@ const moveBall = () => {
   if (newY < 0) {
     console.log("entro if 1");
     velocityY = velocityY * 0.5;
-    velocityX = velocityX * 0.5
+    velocityX = velocityX * 0.5;
     posX = newX;
     posY = 0;
     countJumps += 1;
     console.log(countJumps);
-    validateJumps()
+    validateJumps();
     time = 0;
   }
 
@@ -210,29 +210,29 @@ const moveBall = () => {
     posX = containerBall.offsetWidth;
     posY = newY;
     countJumps += 1;
-    validateJumps()
+    validateJumps();
     time = 0;
   }
 
   if (newX < 0) {
     console.log("entro if 3");
     velocityX = -velocityX * 0.5;
-    velocityY = velocityY * 0.5
+    velocityY = velocityY * 0.5;
     console.log("posx", posX);
     console.log("newx", newX);
     posX = 0;
     posY = newY;
     countJumps += 1;
-    validateJumps()
+    validateJumps();
     time = 0;
   }
 
   ball.style.left = newX + "px";
   ball.style.bottom = newY + "px";
 
-  updateTrajectoryData();
-  updateVelocityChart();
   updateVelocityAngleChart();
+  updateVelocityChart();
+  updateTrajectoryData();
 
   time += timeStep;
 };
@@ -246,10 +246,13 @@ btnLauch.addEventListener("click", () => {
   }, 10);
 });
 
-const updateTrajectoryData = () => {
-  trajectoryData.labels.push(newX);
-  trajectoryData.datasets[0].data.push({ x: newX, y: newY });
-  trajectoryChart.update();
+const updateVelocityAngleChart = () => {
+  const finalSpeed = Math.sqrt(velocityX **2 + velocityY**2);
+  const angleRad = Math.atan(velocityY / velocityX);
+  const angleGrad = angleRad * (180/ Math.PI);
+  velocityAngleData.labels.push(finalSpeed);
+  velocityAngleData.datasets[0].data.push({ x: finalSpeed, y: angleGrad });
+  velocityAngleChart.update();
 };
 
 const updateVelocityChart = () => {
@@ -259,13 +262,10 @@ const updateVelocityChart = () => {
   velocityChart.update();
 };
 
-const updateVelocityAngleChart = () => {
-  const finalSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-  const angleRad = Math.atan(velocityY / velocityX);
-  const angleGrad = (angleRad * 180) / Math.PI;
-  velocityAngleData.labels.push(angleGrad);
-  velocityAngleData.datasets[0].data.push({ x: finalSpeed, y: angleGrad });
-  velocityAngleChart.update();
+const updateTrajectoryData = () => {
+  trajectoryData.labels.push(newX);
+  trajectoryData.datasets[0].data.push({ x: newX, y: newY });
+  trajectoryChart.update();
 };
 
 btnShowGraph.addEventListener("click", () => {
